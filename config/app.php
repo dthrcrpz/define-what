@@ -2,6 +2,9 @@
 
 return [
 
+    # custom configs
+    'rapid_api_key' => env('RAPID_API_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
