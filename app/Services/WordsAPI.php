@@ -19,13 +19,9 @@ class WordsAPI
 		$response = Http::withHeaders($this->headers)
         ->get("https://wordsapiv1.p.rapidapi.com/words/$word");
 
-        return $response->json();
-	}
-
-	public function search ($query) {
-		$response = Http::withHeaders($this->headers)
-        ->get("https://wordsapiv1.p.rapidapi.com/words/$word");
-
-        return $response->json();
+        return response([
+        	'data' => $response->json(),
+        	'status' => $response->status()
+        ]);
 	}
 }
