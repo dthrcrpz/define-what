@@ -1,5 +1,10 @@
-import Vue from 'vue'
+window.Vue = require('vue').default
 
-const vm = new Vue({
-	el: '#app'
+const app = new Vue({
+    el: '#app',
+    data () {
+    	return {
+    		message: 'wew'
+    	}
+    }
 })

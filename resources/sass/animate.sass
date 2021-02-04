@@ -1,0 +1,251 @@
+.animated 
+    -webkit-animation-duration: 1s
+    animation-duration: 1s
+    -webkit-animation-fill-mode: both
+    animation-fill-mode: both
+
+@-webkit-keyframes fadeInRight 
+    from 
+        opacity: 0
+        -webkit-transform: translate3d(100%, 0, 0)
+        transform: translate3d(100%, 0, 0)
+    to 
+        opacity: 1
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+@keyframes fadeInRight 
+    from 
+        opacity: 0
+        -webkit-transform: translate3d(100%, 0, 0)
+        transform: translate3d(100%, 0, 0)
+    to 
+        opacity: 1
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+.fadeInRight 
+    -webkit-animation-name: fadeInRight
+    animation-name: fadeInRight
+    -webkit-animation-duration: .5s
+    animation-duration: .5s
+
+@-webkit-keyframes fadeOutRight 
+    from 
+        opacity: 1
+    to 
+        opacity: 0
+        -webkit-transform: translate3d(100%, 0, 0)
+        transform: translate3d(100%, 0, 0)
+
+@keyframes fadeOutRight 
+    from 
+        opacity: 1
+    to 
+        opacity: 0
+        -webkit-transform: translate3d(100%, 0, 0)
+        transform: translate3d(100%, 0, 0)
+
+.fadeOutRight 
+    -webkit-animation-name: fadeOutRight
+    animation-name: fadeOutRight
+    -webkit-animation-duration: .5s
+    animation-duration: .5s
+
+@-webkit-keyframes fadeInLeft 
+    from 
+        opacity: 0
+        -webkit-transform: translate3d(-100%, 0, 0)
+        transform: translate3d(-100%, 0, 0)
+    to 
+        opacity: 1
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+
+@keyframes fadeInLeft 
+    from 
+        opacity: 0
+        -webkit-transform: translate3d(-100%, 0, 0)
+        transform: translate3d(-100%, 0, 0)
+    to 
+        opacity: 1
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+.fadeInLeft 
+    -webkit-animation-name: fadeInLeft
+    animation-name: fadeInLeft
+    -webkit-animation-duration: .5s
+    animation-duration: .5s
+
+@-webkit-keyframes fadeInDown 
+    from 
+        opacity: 0
+        -webkit-transform: translate3d(0, -10%, 0)
+        transform: translate3d(0, -10%, 0)
+    to 
+        opacity: 1
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+
+@keyframes fadeInDown 
+    from 
+        opacity: 0
+        -webkit-transform: translate3d(0, -10%, 0)
+        transform: translate3d(0, -10%, 0)
+    to 
+        opacity: 1
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+.fadeInDown, .fadeInDownFast 
+    -webkit-animation-name: fadeInDown
+    animation-name: fadeInDown
+    -webkit-animation-duration: .5s
+    animation-duration: .5s
+    
+.fadeInDownFast 
+    -webkit-animation-duration: .4s
+    animation-duration: .4s
+
+@-webkit-keyframes fadeOutUp 
+    from 
+        opacity: 1
+    to 
+        opacity: 0
+        -webkit-transform: translate3d(0, -10%, 0)
+        transform: translate3d(0, -10%, 0)
+
+@keyframes fadeOutUp 
+    from 
+        opacity: 1
+    to 
+        opacity: 0
+        -webkit-transform: translate3d(0, -10%, 0)
+        transform: translate3d(0, -10%, 0)
+
+.fadeOutUp, .fadeOutUpFast 
+    -webkit-animation-name: fadeOutUp
+    animation-name: fadeOutUp
+    -webkit-animation-duration: .5s
+    animation-duration: .5s
+.fadeOutUpFast 
+    -webkit-animation-duration: .4s
+    animation-duration: .4s
+
+@-webkit-keyframes slideInDown 
+    from 
+        -webkit-transform: translate3d(0, -100%, 0)
+        transform: translate3d(0, -100%, 0)
+        visibility: visible
+    to 
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+@keyframes slideInDown 
+    from 
+        -webkit-transform: translate3d(0, -100%, 0)
+        transform: translate3d(0, -100%, 0)
+        visibility: visible
+    to 
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+
+.slideInDown 
+    -webkit-animation-name: slideInDown
+    animation-name: slideInDown
+    -webkit-animation-duration: .5s
+    animation-duration: .5s
+
+@-webkit-keyframes slideOutUp 
+    from 
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+    to 
+        visibility: hidden
+        -webkit-transform: translate3d(0, -100%, 0)
+        transform: translate3d(0, -100%, 0)
+
+@keyframes slideOutUp 
+    from 
+        -webkit-transform: translate3d(0, 0, 0)
+        transform: translate3d(0, 0, 0)
+    to 
+        visibility: hidden
+        -webkit-transform: translate3d(0, -100%, 0)
+        transform: translate3d(0, -100%, 0)
+
+.slideOutUp 
+    -webkit-animation-name: slideOutUp
+    animation-name: slideOutUp
+    -webkit-animation-duration: .4s
+    animation-duration: .4s
+
+.slide-in-from-right
+    animation: slide_in_from_right 1s
+    
+.scale-in
+    animation: scale_in .4s
+
+.scale-out
+    animation: scale_out .4s
+    
+.fade-in
+    animation: fade_in 1s
+
+@keyframes fade_in 
+    from 
+        opacity: 0
+
+    to 
+        opacity: 1
+
+@keyframes bounce
+    from
+        transform: translateY(0)
+    to
+        transform: translateY(-10px)
+
+@keyframes rotating
+    from
+        transform: rotate(0deg)
+    to
+        transform: rotate(360deg)
+
+@keyframes shaking
+    from
+        transform: rotate(-20deg)
+    to
+        transform: rotate(20deg)
+
+@keyframes shaking_weak
+    from
+        transform: rotate(-1deg)
+    to
+        transform: rotate(1deg)
+
+@keyframes blink
+    from
+        opacity: 0
+    to
+        opacity: 1
+
+@keyframes banner_photo_blinking_shadow
+    from
+        box-shadow: 0 0 70px rgba(100,250,250, 0.4)
+    to
+        box-shadow: 0 0 90px rgba(100,250,250, 0.4)
+
+
+@keyframes emphasize
+    from
+        transform: scale(1)
+    to
+        transform: scale(1.1)
+
+// .emphasize
+    // animation: emphasize .2s alternate infinite
+
+// wew

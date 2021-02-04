@@ -1,6 +1,6 @@
 const mix = require('laravel-mix')
 
-mix.sass('resources/sass/app.sass', 'public/css')
-	.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js')
+    .vue()
+    .sass('resources/sass/app.sass', 'public/css')
     .disableNotifications()
-    .version()
