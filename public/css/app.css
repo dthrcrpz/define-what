@@ -715,7 +715,7 @@ button {
   top: calc(100% - 25px);
 }
 
-.loading-modal {
+.loader {
   position: fixed;
   z-index: 9999;
   width: 100vw;
@@ -724,14 +724,15 @@ button {
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
   max-height: 100vh;
   overflow-y: auto;
-  background-image: url("/loading.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80px;
   cursor: progress;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .banner-background {
@@ -844,6 +845,15 @@ nav .container .search-bar-container {
   position: relative;
   max-width: 500px;
   width: 100%;
+}
+
+nav .container .search-bar-container.disabled {
+  cursor: not-allowed;
+}
+
+nav .container .search-bar-container.disabled input,
+nav .container .search-bar-container.disabled button {
+  background-color: #ccc;
 }
 
 nav .container .search-bar-container input {
