@@ -1,4 +1,5 @@
 ## Define What
+I made this project for a technical exam
 
 ## Installation
 Clone this repository
