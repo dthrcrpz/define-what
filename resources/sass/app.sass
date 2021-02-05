@@ -2,6 +2,13 @@
 
 nav
 	background-color: $primary
+	box-shadow: 0 0 11px rgba(0, 0, 0, 0.5)
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	margin: auto
+	width: 100%
 	.container
 		display: flex
 		flex-flow: row wrap
@@ -23,15 +30,18 @@ nav
 			max-width: 500px
 			width: 100%
 			input
-				padding: 10px
-				font-size: 20px
+				padding: 5px 10px
+				font-size: 17px
 				width: 100%
 				@extend .catamaran
-				border: 4px solid $secondary
+				border: 4px solid $primary
+				transition: .5s
+				&:focus
+					border: 4px solid $secondary
 			button
 				position: absolute
 				right: 4px
-				max-width: 60px
+				max-width: 50px
 				width: 100%
 				height: calc(100% - 8px)
 				top: 0
@@ -41,9 +51,55 @@ nav
 				margin: auto
 				transition: .5s
 				svg
-					width: 60%
+					width: 45%
 					transition: .5s
 				&:hover
 					background-color: $primary
 					svg
 						fill: $secondary
+
+footer
+	background-color: $primary
+	padding: 5px 0
+	position: fixed
+	bottom: 0
+	right: 0
+	left: 0
+	margin: auto
+	.container
+		color: #fff
+		text-align: center
+		a
+			color: $secondary
+
+.definition
+	margin-top: 20px
+	.container
+		.word-searched
+			font-size: 50px
+			@extend .righteous
+			margin-bottom: 20px
+			color: $primary
+		.definitions-group-container
+			margin-bottom: 20px
+			background-color: #fff
+			padding: 20px
+			box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.1)
+			.group
+				.part-of-speech
+					font-size: 25px
+					font-weight: bold
+					font-style: italic
+					color: $primary
+				.pronunciation
+					font-size: 20px
+					color: $primary
+					span
+						color: #b7b7b7
+				.label-group
+					display: flex
+					align-items: flex-start
+					.label
+						margin-right: 15px
+						font-weight: bold
+						color: $primary
