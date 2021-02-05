@@ -6,16 +6,18 @@ nav
 		display: flex
 		flex-flow: row wrap
 		align-items: center
-		.logo
+		.logo-container
+			width: 160px
 			a
 				color: $secondary
 				@extend .righteous
 				font-size: 30px
-				max-width: 115px
-				width: 100%
-				display: block
 				line-height: .9
 				padding: 20px 0
+				display: flex
+				align-items: center
+				.logo
+					flex: 0 0 50px
 		.search-bar-container
 			position: relative
 			max-width: 500px
@@ -37,5 +39,11 @@ nav
 				background-color: #fff
 				border: $secondary
 				margin: auto
+				transition: .5s
 				svg
-					width: 80%
+					width: 60%
+					transition: .5s
+				&:hover
+					background-color: $primary
+					svg
+						fill: $secondary

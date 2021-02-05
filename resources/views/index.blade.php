@@ -7,7 +7,6 @@
 <body>
 	<div id="app">
 		<navbar/>
-		@{{ message }}
 	</div>
 
 	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>

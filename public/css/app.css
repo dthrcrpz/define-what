@@ -421,7 +421,7 @@
 }
 
 .righteous,
-nav .container .logo a,
+nav .container .logo-container a,
 section .mini-title,
 .section-title {
   font-family: Righteous;
@@ -439,6 +439,7 @@ html {
 
 body {
   color: #1c1c1c;
+  background-color: #e2e2e2;
 }
 
 *,
@@ -509,7 +510,7 @@ button {
 }
 
 .container {
-  max-width: 1366px;
+  max-width: 1024px;
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
@@ -813,14 +814,21 @@ nav .container {
   align-items: center;
 }
 
-nav .container .logo a {
+nav .container .logo-container {
+  width: 160px;
+}
+
+nav .container .logo-container a {
   color: #64fafa;
   font-size: 30px;
-  max-width: 115px;
-  width: 100%;
-  display: block;
   line-height: 0.9;
   padding: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+nav .container .logo-container a .logo {
+  flex: 0 0 50px;
 }
 
 nav .container .search-bar-container {
@@ -847,10 +855,20 @@ nav .container .search-bar-container button {
   background-color: #fff;
   border: #64fafa;
   margin: auto;
+  transition: 0.5s;
 }
 
 nav .container .search-bar-container button svg {
-  width: 80%;
+  width: 60%;
+  transition: 0.5s;
+}
+
+nav .container .search-bar-container button:hover {
+  background-color: #2d3e50;
+}
+
+nav .container .search-bar-container button:hover svg {
+  fill: #64fafa;
 }
 
 
