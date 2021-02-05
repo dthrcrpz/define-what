@@ -19,9 +19,13 @@ class WordsAPI
 		$response = Http::withHeaders($this->headers)
         ->get("https://wordsapiv1.p.rapidapi.com/words/$word");
 
-        return response([
-        	'data' => $response->json(),
-        	'status' => $response->status()
-        ]);
+        return $response;
+	}
+
+	public function antonyms ($word) {
+		$response = Http::withHeaders($this->headers)
+        ->get("https://wordsapiv1.p.rapidapi.com/words/$word/antonyms");
+
+        return $response;
 	}
 }

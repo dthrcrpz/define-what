@@ -421,12 +421,14 @@
 }
 
 .righteous,
+nav .container .logo a,
 section .mini-title,
 .section-title {
   font-family: Righteous;
 }
 
 .catamaran,
+nav .container .search-bar-container input,
 body {
   font-family: Catamaran;
 }
@@ -799,6 +801,56 @@ section .mini-title {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #2d3e50;
+}
+
+nav {
+  background-color: #2d3e50;
+}
+
+nav .container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+nav .container .logo a {
+  color: #64fafa;
+  font-size: 30px;
+  max-width: 115px;
+  width: 100%;
+  display: block;
+  line-height: 0.9;
+  padding: 20px 0;
+}
+
+nav .container .search-bar-container {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+nav .container .search-bar-container input {
+  padding: 10px;
+  font-size: 20px;
+  width: 100%;
+  border: 4px solid #64fafa;
+}
+
+nav .container .search-bar-container button {
+  position: absolute;
+  right: 4px;
+  max-width: 60px;
+  width: 100%;
+  height: calc(100% - 8px);
+  top: 0;
+  bottom: 0;
+  background-color: #fff;
+  border: #64fafa;
+  margin: auto;
+}
+
+nav .container .search-bar-container button svg {
+  width: 80%;
 }
 
 

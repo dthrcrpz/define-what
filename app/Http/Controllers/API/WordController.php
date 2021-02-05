@@ -17,6 +17,18 @@ class WordController extends Controller
     public function show ($word) {
     	$response = $this->wordsAPI->get($word);
 
-    	return $response;
+    	return response([
+        	'data' => $response->json(),
+        	'status' => $response->status()
+        ], $response->status());
+    }
+
+    public function antonyms ($word) {
+    	$response = $this->wordsAPI->antonyms($word);
+
+    	return response([
+        	'data' => $response->json(),
+        	'status' => $response->status()
+        ], $response->status());
     }
 }
