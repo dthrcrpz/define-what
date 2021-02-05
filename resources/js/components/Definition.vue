@@ -1,9 +1,10 @@
 <template>
 	<div class="definition">
+		{{ wordData }}
 		<transition name="fade">
 			<loader v-if="loading"></loader>
 			<div class="container" v-if="!loading">
-				<p class="word-searched">kill</p>
+				<p class="word-searched">{{ wordData.data.word }}</p>
 				<div class="definitions-group-container">
 					<div class="group">
 						<div class="part-of-speech">Noun</div>
@@ -43,7 +44,8 @@
 		},
 		computed: {
 			...mapGetters({
-				loading: 'getLoading'
+				loading: 'getLoading',
+				wordData: 'getWordData'
 			})
 		},
 	}

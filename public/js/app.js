@@ -1888,6 +1888,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1895,7 +1896,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Loader: _Loader__WEBPACK_IMPORTED_MODULE_0__.default
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
-    loading: 'getLoading'
+    loading: 'getLoading',
+    wordData: 'getWordData'
   }))
 });
 
@@ -1957,19 +1959,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     search: function search() {
       var _this = this;
 
-      this.$store.dispatch('setLoading', true); // this.axios.get(`/api/words/${this.word}`).then(res => {
-      // 	this.word = res.data.word
-      // 	this.$store.dispatch('setWordData', res.data)
-      // }).catch(err => {
-      // 	console.log(err)
-      // }).then(() => {
-      // 	this.$store.dispatch('setLoading', false)
-      // })
-      // 
+      this.$store.commit('LOADING', true);
+      this.axios.get("/api/words/".concat(this.word)).then(function (res) {
+        _this.word = res.data.word;
 
-      setTimeout(function () {
-        _this.$store.dispatch('setLoading', false);
-      }, 1000);
+        _this.$store.commit('WORD_DATA', res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      }).then(function () {
+        _this.$store.commit('LOADING', false);
+      });
     }
   }
 });
@@ -2017,6 +2016,9 @@ var app = new Vue({
     return {
       message: 'wew'
     };
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('setWordData');
   }
 });
 
@@ -2033,9 +2035,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: {
-    wordData: {},
+    wordData: {
+      data: {
+        word: ''
+      }
+    },
+    wordIsRandom: true,
     loading: false
   },
   getters: {
@@ -2047,8 +2057,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   actions: {
-    setWordData: function setWordData(context, data) {
-      context.commit('WORD_DATA', data);
+    setWordData: function setWordData(context) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/random-word').then(function (res) {
+        context.commit('WORD_DATA', res.data);
+        context.commit('WORD_IS_RANDOM', true);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     },
     setLoading: function setLoading(context, data) {
       context.commit('LOADING', data);
@@ -2060,6 +2075,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     LOADING: function LOADING(state, data) {
       return state.loading = data;
+    },
+    WORD_IS_RANDOM: function WORD_IS_RANDOM(state, data) {
+      return state.wordIsRandom = data;
     }
   },
   strict: true
@@ -3037,6 +3055,7 @@ var render = function() {
     "div",
     { staticClass: "definition" },
     [
+      _vm._v("\n\t" + _vm._s(_vm.wordData) + "\n\t"),
       _c(
         "transition",
         { attrs: { name: "fade" } },
@@ -3045,7 +3064,9 @@ var render = function() {
           _vm._v(" "),
           !_vm.loading
             ? _c("div", { staticClass: "container" }, [
-                _c("p", { staticClass: "word-searched" }, [_vm._v("kill")]),
+                _c("p", { staticClass: "word-searched" }, [
+                  _vm._v(_vm._s(_vm.wordData.data.word))
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "definitions-group-container" }, [
                   _c("div", { staticClass: "group" }, [

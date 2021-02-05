@@ -25,5 +25,8 @@ const app = new Vue({
     	return {
     		message: 'wew'
     	}
+    },
+    mounted () {
+        this.$store.dispatch('setWordData')
     }
 })

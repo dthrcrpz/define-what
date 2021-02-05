@@ -22,6 +22,13 @@ class WordsAPI
         return $response;
 	}
 
+	public function random () {
+		$response = Http::withHeaders($this->headers)
+        ->get("https://wordsapiv1.p.rapidapi.com/words/?random=true");
+
+        return $response;
+	}
+
 	public function antonyms ($word) {
 		$response = Http::withHeaders($this->headers)
         ->get("https://wordsapiv1.p.rapidapi.com/words/$word/antonyms");

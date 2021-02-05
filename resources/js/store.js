@@ -1,6 +1,13 @@
+import axios from 'axios'
+
 export default {
     state: {
-        wordData: {},
+        wordData: {
+            data: {
+                word: ''
+            }
+        },
+        wordIsRandom: true,
         loading: false
     },
     getters: {
@@ -12,8 +19,13 @@ export default {
         }
     },
     actions: {
-        setWordData (context, data) {
-            context.commit('WORD_DATA', data)
+        setWordData (context) {
+            axios.get('/api/random-word').then(res => {
+                context.commit('WORD_DATA', res.data)
+                context.commit('WORD_IS_RANDOM', true)
+            }).catch(err => {
+                console.log(err)
+            })
         },
         setLoading (context, data) {
             context.commit('LOADING', data)
@@ -25,6 +37,9 @@ export default {
         },
         LOADING (state, data) {
             return state.loading = data
+        },
+        WORD_IS_RANDOM (state, data) {
+            return state.wordIsRandom = data
         }
     },
     strict: true

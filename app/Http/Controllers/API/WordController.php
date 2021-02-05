@@ -23,6 +23,15 @@ class WordController extends Controller
         ], $response->status());
     }
 
+    public function random () {
+        $response = $this->wordsAPI->random();
+
+        return response([
+            'data' => $response->json(),
+            'status' => $response->status()
+        ], $response->status());
+    }
+
     public function antonyms ($word) {
     	$response = $this->wordsAPI->antonyms($word);
 

@@ -37,20 +37,16 @@
 		},
 		methods: {
 			search () {
-				this.$store.dispatch('setLoading', true)
+				this.$store.commit('LOADING', true)
 
-				// this.axios.get(`/api/words/${this.word}`).then(res => {
-				// 	this.word = res.data.word
-				// 	this.$store.dispatch('setWordData', res.data)
-				// }).catch(err => {
-				// 	console.log(err)
-				// }).then(() => {
-				// 	this.$store.dispatch('setLoading', false)
-				// })
-				// 
-				setTimeout(() => {
-					this.$store.dispatch('setLoading', false)
-				}, 1000)
+				this.axios.get(`/api/words/${this.word}`).then(res => {
+					this.word = res.data.word
+					this.$store.commit('WORD_DATA', res.data)
+				}).catch(err => {
+					console.log(err)
+				}).then(() => {
+					this.$store.commit('LOADING', false)
+				})
 			}
 		}
 	}
