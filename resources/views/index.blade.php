@@ -6,6 +6,7 @@
 </head>
 <body>
 	<div id="app">
+		<navbar/>
 		@{{ message }}
 	</div>
 
