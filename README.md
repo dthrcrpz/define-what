@@ -23,6 +23,8 @@ If you want to play with the assets, use the package manager [npm](https://nodej
 cd /path/to/project-folder
 
 npm install
+
+npm run watch-poll
 ```
 
 Put the .env file I sent to you on the project folder. It contains my own Rapid API key. If I haven't sent anything because we don't know each other, you can create your own Rapid API key for WordsAPI [here](https://rapidapi.com/dpventures/api/wordsapi/pricing). 
