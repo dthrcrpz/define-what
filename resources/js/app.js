@@ -11,6 +11,7 @@ window.Vue.use(VueAxios, axios)
 import Navbar from './components/Navbar'
 import Foot from './components/Foot'
 import Definition from './components/Definition'
+import SideNav from './components/SideNav'
 
 import storeData from './store'
 const store = new Vuex.Store(storeData)
@@ -18,7 +19,7 @@ const store = new Vuex.Store(storeData)
 const app = new Vue({
     el: '#app',
     components: {
-    	Navbar, Foot, Definition
+    	Navbar, Foot, Definition, SideNav
     },
     store,
     data () {

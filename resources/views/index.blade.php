@@ -7,7 +7,12 @@
 <body>
 	<div id="app">
 		<navbar></navbar>
-		<definition></definition>
+		<div class="results-container">
+			<div class="container">
+				<definition></definition>
+				<side-nav></side-nav>
+			</div>
+		</div>
 		<foot></foot>
 	</div>
 

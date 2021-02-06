@@ -33,10 +33,6 @@
 								</a>
 							</div>
 						</div>
-						<div class="label-group">
-							<div class="label">Antonyms:</div>
-							<div class="value">wala, meron, ewan</div>
-						</div>
 					</div>
 				</div>
 			</div>
