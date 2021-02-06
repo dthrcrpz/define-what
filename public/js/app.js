@@ -1889,6 +1889,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1898,7 +1903,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     loading: 'getLoading',
     wordData: 'getWordData'
-  }))
+  })),
+  methods: {
+    needComma: function needComma(word, allData, key) {
+      if (allData.length - 1 == key) {
+        return word;
+      } else {
+        return "".concat(word, ",");
+      }
+    },
+    search: function search(word) {
+      this.$store.dispatch('searchWord', word);
+    }
+  }
 });
 
 /***/ }),
@@ -1952,23 +1969,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   data: function data() {
     return {
-      word: 'trust'
+      query: 'trust'
     };
   },
   methods: {
     search: function search() {
-      var _this = this;
-
-      this.$store.commit('LOADING', true);
-      this.axios.get("/api/words/".concat(this.word)).then(function (res) {
-        _this.word = res.data.word;
-
-        _this.$store.commit('WORD_DATA', res.data);
-      })["catch"](function (err) {
-        console.log(err);
-      }).then(function () {
-        _this.$store.commit('LOADING', false);
-      });
+      this.$store.dispatch('searchWord', this.query);
     }
   }
 });
@@ -2040,13 +2046,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: {
+    word: 'define',
     wordData: {
       data: {
         word: ''
       }
     },
-    wordIsRandom: true,
-    loading: false
+    loading: true
   },
   getters: {
     getWordData: function getWordData(state) {
@@ -2054,30 +2060,46 @@ __webpack_require__.r(__webpack_exports__);
     },
     getLoading: function getLoading(state) {
       return state.loading;
+    },
+    getWord: function getWord(state) {
+      return state.word;
     }
   },
   actions: {
     setWordData: function setWordData(context) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/random-word').then(function (res) {
+      context.commit('LOADING', true);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/words/define').then(function (res) {
         context.commit('WORD_DATA', res.data);
-        context.commit('WORD_IS_RANDOM', true);
       })["catch"](function (err) {
         console.log(err);
+      }).then(function () {
+        context.commit('LOADING', false);
       });
     },
-    setLoading: function setLoading(context, data) {
-      context.commit('LOADING', data);
+    setLoading: function setLoading(context, value) {
+      context.commit('LOADING', value);
+    },
+    searchWord: function searchWord(context, word) {
+      context.commit('LOADING', true);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/words/".concat(word)).then(function (res) {
+        context.commit('WORD', word);
+        context.commit('WORD_DATA', res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      }).then(function () {
+        context.commit('LOADING', false);
+      });
     }
   },
   mutations: {
+    WORD: function WORD(state, value) {
+      return state.word = value;
+    },
     WORD_DATA: function WORD_DATA(state, data) {
       return state.wordData = data;
     },
-    LOADING: function LOADING(state, data) {
-      return state.loading = data;
-    },
-    WORD_IS_RANDOM: function WORD_IS_RANDOM(state, data) {
-      return state.wordIsRandom = data;
+    LOADING: function LOADING(state, value) {
+      return state.loading = value;
     }
   },
   strict: true
@@ -3055,7 +3077,6 @@ var render = function() {
     "div",
     { staticClass: "definition" },
     [
-      _vm._v("\n\t" + _vm._s(_vm.wordData) + "\n\t"),
       _c(
         "transition",
         { attrs: { name: "fade" } },
@@ -3065,62 +3086,110 @@ var render = function() {
           !_vm.loading
             ? _c("div", { staticClass: "container" }, [
                 _c("p", { staticClass: "word-searched" }, [
-                  _vm._v(_vm._s(_vm.wordData.data.word))
+                  _vm._v(
+                    "\n\t\t\t\t" + _vm._s(_vm.wordData.data.word) + "\n\t\t\t"
+                  )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "definitions-group-container" }, [
-                  _c("div", { staticClass: "group" }, [
-                    _c("div", { staticClass: "part-of-speech" }, [
-                      _vm._v("Noun")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "pronunciation" }, [
-                      _c("span", [_vm._v("\\")]),
-                      _vm._v(" kɪl "),
-                      _c("span", [_vm._v("\\")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "label-group" }, [
-                      _c("div", { staticClass: "label" }, [
-                        _vm._v("Definition:")
+                _c("div", { staticClass: "pronunciation" }, [
+                  _c("span", [_vm._v("\\")]),
+                  _vm._v(
+                    " " + _vm._s(_vm.wordData.data.pronunciation.all) + " "
+                  ),
+                  _c("span", [_vm._v("\\")])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "definitions-group-container" },
+                  _vm._l(_vm.wordData.data.results, function(result, key) {
+                    return _c("div", { staticClass: "group" }, [
+                      _c("div", { staticClass: "part-of-speech" }, [
+                        _vm._v(_vm._s(result.partOfSpeech))
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "value" }, [
-                        _vm._v(
-                          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n\t\t\t\t\t\ttempor incididunt ut labore et dolore magna aliqua."
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "label-group" }, [
-                      _c("div", { staticClass: "label" }, [_vm._v("Example:")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "value" }, [
-                        _vm._v(
-                          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n\t\t\t\t\t\ttempor incididunt ut labore et dolore magna aliqua."
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "label-group" }, [
-                      _c("div", { staticClass: "label" }, [_vm._v("Synoyms:")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "value" }, [
-                        _vm._v("wala, meron, ewan")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "label-group" }, [
-                      _c("div", { staticClass: "label" }, [
-                        _vm._v("Antonyms:")
+                      _c("div", { staticClass: "label-group" }, [
+                        _c("div", { staticClass: "label" }, [
+                          _vm._v("Definition:")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "value" }, [
+                          _vm._v(_vm._s(result.definition) + " ")
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "value" }, [
-                        _vm._v("wala, meron, ewan")
+                      result.examples
+                        ? _c("div", { staticClass: "label-group" }, [
+                            _c("div", { staticClass: "label" }, [
+                              _vm._v("Example(s):")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "value" },
+                              _vm._l(result.examples, function(example, key) {
+                                return _c("p", { staticClass: "examples" }, [
+                                  _vm._v(_vm._s(example))
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      result.synonyms
+                        ? _c("div", { staticClass: "label-group synonyms" }, [
+                            _c("div", { staticClass: "label" }, [
+                              _vm._v("Synoyms:")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "value" },
+                              _vm._l(result.synonyms, function(synonym, key) {
+                                return _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "javascript:void(0)" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.search(synonym)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t" +
+                                        _vm._s(
+                                          _vm.needComma(
+                                            synonym,
+                                            result.synonyms,
+                                            key
+                                          )
+                                        ) +
+                                        "\n\t\t\t\t\t\t\t"
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "label-group" }, [
+                        _c("div", { staticClass: "label" }, [
+                          _vm._v("Antonyms:")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "value" }, [
+                          _vm._v("wala, meron, ewan")
+                        ])
                       ])
                     ])
-                  ])
-                ])
+                  }),
+                  0
+                )
               ])
             : _vm._e()
         ],
@@ -3405,8 +3474,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.word,
-                expression: "word"
+                value: _vm.query,
+                expression: "query"
               }
             ],
             attrs: {
@@ -3415,13 +3484,13 @@ var render = function() {
               placeholder: "Enter a word",
               disabled: _vm.loading
             },
-            domProps: { value: _vm.word },
+            domProps: { value: _vm.query },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.word = $event.target.value
+                _vm.query = $event.target.value
               }
             }
           }),

@@ -9,6 +9,7 @@ nav
 	right: 0
 	margin: auto
 	width: 100%
+	z-index: 1
 	.container
 		display: flex
 		flex-flow: row wrap
@@ -77,30 +78,48 @@ footer
 			color: $secondary
 
 .definition
-	margin-top: 20px
+	margin: 20px 0 100px
 	.container
 		.word-searched
 			font-size: 50px
 			@extend .righteous
-			margin-bottom: 20px
+			margin-bottom: 10px
 			color: $primary
+			display: flex
+			flex-flow: column
+		.pronunciation
+			margin-bottom: 20px
+			font-size: 20px
+			color: $primary
+			span
+				color: #b7b7b7
+				font-size: 16px
 		.definitions-group-container
 			margin-bottom: 20px
 			background-color: #fff
 			padding: 20px
 			box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.1)
 			.group
+				padding-bottom: 10px
+				margin-bottom: 10px
+				position: relative
+				&:last-child
+					&:after
+						display: none
+				&:after
+					content: ''
+					background-color: #cecece
+					height: 2px
+					position: absolute
+					bottom: 0
+					left: 0
+					right: 0
+					margin: auto
 				.part-of-speech
 					font-size: 25px
 					font-weight: bold
 					font-style: italic
 					color: $primary
-				.pronunciation
-					font-size: 20px
-					color: $primary
-					span
-						color: #b7b7b7
-						font-size: 16px
 				.label-group
 					display: flex
 					align-items: flex-start
@@ -108,3 +127,9 @@ footer
 						margin-right: 15px
 						font-weight: bold
 						color: $primary
+					&.synonyms
+						.value
+							a
+								color: darken($secondary, 50%)
+								&:hover
+									text-decoration: underline

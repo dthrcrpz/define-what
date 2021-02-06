@@ -1,27 +1,32 @@
 <template>
 	<div class="definition">
-		{{ wordData }}
 		<transition name="fade">
 			<loader v-if="loading"></loader>
 			<div class="container" v-if="!loading">
-				<p class="word-searched">{{ wordData.data.word }}</p>
+				<p class="word-searched">
+					{{ wordData.data.word }}
+				</p>
+				<div class="pronunciation"><span>\</span> {{ wordData.data.pronunciation.all }} <span>\</span></div>
 				<div class="definitions-group-container">
-					<div class="group">
-						<div class="part-of-speech">Noun</div>
-						<div class="pronunciation"><span>\</span> kɪl <span>\</span></div>
+					<div class="group" v-for="(result, key) in wordData.data.results">
+						<div class="part-of-speech">{{ result.partOfSpeech }}</div>
 						<div class="label-group">
 							<div class="label">Definition:</div>
-							<div class="value">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</div>
+							<div class="value">{{ result.definition }} </div>
 						</div>
-						<div class="label-group">
-							<div class="label">Example:</div>
-							<div class="value">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</div>
+						<div class="label-group" v-if="result.examples">
+							<div class="label">Example(s):</div>
+							<div class="value">
+								<p class="examples" v-for="(example, key) in result.examples">{{ example }}</p>
+							</div>
 						</div>
-						<div class="label-group">
+						<div class="label-group synonyms" v-if="result.synonyms">
 							<div class="label">Synoyms:</div>
-							<div class="value">wala, meron, ewan</div>
+							<div class="value">
+								<a href="javascript:void(0)" @click="search(synonym)" v-for="(synonym, key) in result.synonyms">
+									{{ needComma(synonym, result.synonyms, key) }}
+								</a>
+							</div>
 						</div>
 						<div class="label-group">
 							<div class="label">Antonyms:</div>
@@ -48,5 +53,17 @@
 				wordData: 'getWordData'
 			})
 		},
+		methods: {
+			needComma (word, allData, key) {
+				if (allData.length - 1 == key) {
+					return word
+				} else {
+					return `${word},`
+				}
+			},
+			search (word) {
+				this.$store.dispatch('searchWord', word)
+			}
+		}
 	}
 </script>

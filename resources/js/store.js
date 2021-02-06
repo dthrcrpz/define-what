@@ -2,13 +2,13 @@ import axios from 'axios'
 
 export default {
     state: {
+        word: 'define',
         wordData: {
             data: {
                 word: ''
             }
         },
-        wordIsRandom: true,
-        loading: false
+        loading: true
     },
     getters: {
         getWordData (state) {
@@ -16,30 +16,47 @@ export default {
         },
         getLoading (state) {
             return state.loading
+        },
+        getWord (state) {
+            return state.word
         }
     },
     actions: {
         setWordData (context) {
-            axios.get('/api/random-word').then(res => {
+            context.commit('LOADING', true)
+            axios.get('/api/words/define').then(res => {
                 context.commit('WORD_DATA', res.data)
-                context.commit('WORD_IS_RANDOM', true)
             }).catch(err => {
                 console.log(err)
+            }).then(() => {
+                context.commit('LOADING', false)
             })
         },
-        setLoading (context, data) {
-            context.commit('LOADING', data)
+        setLoading (context, value) {
+            context.commit('LOADING', value)
+        },
+        searchWord (context, word) {
+            context.commit('LOADING', true)
+
+            axios.get(`/api/words/${word}`).then(res => {
+                context.commit('WORD', word)
+                context.commit('WORD_DATA', res.data)
+            }).catch(err => {
+                console.log(err)
+            }).then(() => {
+                context.commit('LOADING', false)
+            })
         }
     },
     mutations: {
+        WORD (state, value) {
+            return state.word = value
+        },
         WORD_DATA (state, data) {
             return state.wordData = data
         },
-        LOADING (state, data) {
-            return state.loading = data
-        },
-        WORD_IS_RANDOM (state, data) {
-            return state.wordIsRandom = data
+        LOADING (state, value) {
+            return state.loading = value
         }
     },
     strict: true
