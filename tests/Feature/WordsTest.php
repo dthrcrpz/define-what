@@ -12,14 +12,36 @@ class WordsTest extends TestCase
     use WithFaker;
     use DatabaseTransactions;
 
+    public function test_savedWordsCanBeFetched () {
+        $this->withoutExceptionHandling();
+
+        $response = $this->get("api/previous-searches");
+        $response->assertSuccessful();
+    }
+
     public function test_anExistingWordCanBeFetched () {
+        $this->withoutExceptionHandling();
+
         $word = 'elevator';
 
         $response = $this->get("api/words/$word");
         $response->assertSee($word);
     }
 
+    public function test_aWordIsSavedWhenItExists () {
+        $this->withoutExceptionHandling();
+
+        # test 
+        $this->test_anExistingWordCanBeFetched();
+
+        $this->assertDatabaseHas('previous_searches', [
+            'word' => 'elevator',
+        ]);
+    }
+
     public function test_aNonExistingWordCannotBeFetched () {
+        $this->withoutExceptionHandling();
+
         $word = 'dfgdfgfd';
 
         $response = $this->get("api/words/$word");
@@ -27,7 +49,9 @@ class WordsTest extends TestCase
     }
 
     public function test_theAntonymsOfAWordCanBeFetched () {
-        $word = 'elevator';
+        $this->withoutExceptionHandling();
+
+        $word = 'free';
 
         $response = $this->get("api/words/$word/antonyms");
         $response->assertSee($word);
