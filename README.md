@@ -1,5 +1,5 @@
 ## Define What
-I made this project for a technical exam. This is a website that will tell you the definition of a word.
+I made this project for a coding challenge. This is a website that will tell you the definition of a word.
 
 ## Installation
 Clone this repository
