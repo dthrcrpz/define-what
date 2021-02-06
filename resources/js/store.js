@@ -50,7 +50,6 @@ export default {
             context.commit('PREVIOUS_SEARCHES', [])
 
             axios.get('/api/previous-searches').then(res => {
-                console.log(res.data.previousSearches)
                 context.commit('PREVIOUS_SEARCHES', res.data.previousSearches)
             }).catch(err => {
                 console.log(err)

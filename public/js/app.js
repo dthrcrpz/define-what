@@ -2163,7 +2163,6 @@ __webpack_require__.r(__webpack_exports__);
     setPreviousSearches: function setPreviousSearches(context) {
       context.commit('PREVIOUS_SEARCHES', []);
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/previous-searches').then(function (res) {
-        console.log(res.data.previousSearches);
         context.commit('PREVIOUS_SEARCHES', res.data.previousSearches);
       })["catch"](function (err) {
         console.log(err);
