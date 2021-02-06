@@ -919,6 +919,12 @@ footer .container a {
   margin: 20px 0 100px;
 }
 
+.definition .not-found .container {
+  text-align: center;
+  font-size: 26px;
+  color: #2d3e50;
+}
+
 .definition .container .word-searched {
   font-size: 50px;
   margin-bottom: 10px;

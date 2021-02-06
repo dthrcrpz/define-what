@@ -28,11 +28,17 @@
 		computed: {
 			...mapGetters({
 				loading: 'getLoading',
+				word: 'getWord',
 			})
 		},
 		data () {
 			return {
 				query: 'trust'
+			}
+		},
+		watch: {
+			'$store.getters.getWord': function (value) {
+				this.query = value
 			}
 		},
 		methods: {

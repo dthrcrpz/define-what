@@ -8,7 +8,8 @@ export default {
                 word: ''
             }
         },
-        loading: true
+        loading: true,
+        notFound: false
     },
     getters: {
         getWordData (state) {
@@ -19,6 +20,9 @@ export default {
         },
         getWord (state) {
             return state.word
+        },
+        getNotFound (state) {
+            return state.notFound
         }
     },
     actions: {
@@ -39,12 +43,14 @@ export default {
             context.commit('LOADING', true)
 
             axios.get(`/api/words/${word}`).then(res => {
-                context.commit('WORD', word)
                 context.commit('WORD_DATA', res.data)
+                context.commit('NOT_FOUND', false)
             }).catch(err => {
                 console.log(err)
+                context.commit('NOT_FOUND', true)
             }).then(() => {
                 context.commit('LOADING', false)
+                context.commit('WORD', word)
             })
         }
     },
@@ -57,6 +63,9 @@ export default {
         },
         LOADING (state, value) {
             return state.loading = value
+        },
+        NOT_FOUND (state, value) {
+            return state.notFound = value
         }
     },
     strict: true

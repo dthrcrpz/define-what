@@ -1,8 +1,13 @@
 <template>
 	<div class="definition">
+		<div class="not-found" v-if="!loading && notFound">
+			<div class="container">
+				No results found for <i><u>{{ word }}</u></i>
+			</div>
+		</div>
 		<transition name="fade">
 			<loader v-if="loading"></loader>
-			<div class="container" v-if="!loading">
+			<div class="container" v-if="!loading && !notFound">
 				<p class="word-searched">
 					{{ wordData.data.word }}
 				</p>
@@ -50,7 +55,9 @@
 		computed: {
 			...mapGetters({
 				loading: 'getLoading',
-				wordData: 'getWordData'
+				wordData: 'getWordData',
+				notFound: 'getNotFound',
+				word: 'getWord'
 			})
 		},
 		methods: {

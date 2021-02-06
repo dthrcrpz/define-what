@@ -1894,6 +1894,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1902,7 +1907,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     loading: 'getLoading',
-    wordData: 'getWordData'
+    wordData: 'getWordData',
+    notFound: 'getNotFound',
+    word: 'getWord'
   })),
   methods: {
     needComma: function needComma(word, allData, key) {
@@ -1965,12 +1972,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Logo: _Logo__WEBPACK_IMPORTED_MODULE_0__.default
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
-    loading: 'getLoading'
+    loading: 'getLoading',
+    word: 'getWord'
   })),
   data: function data() {
     return {
       query: 'trust'
     };
+  },
+  watch: {
+    '$store.getters.getWord': function $storeGettersGetWord(value) {
+      this.query = value;
+    }
   },
   methods: {
     search: function search() {
@@ -2052,7 +2065,8 @@ __webpack_require__.r(__webpack_exports__);
         word: ''
       }
     },
-    loading: true
+    loading: true,
+    notFound: false
   },
   getters: {
     getWordData: function getWordData(state) {
@@ -2063,6 +2077,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getWord: function getWord(state) {
       return state.word;
+    },
+    getNotFound: function getNotFound(state) {
+      return state.notFound;
     }
   },
   actions: {
@@ -2082,12 +2099,14 @@ __webpack_require__.r(__webpack_exports__);
     searchWord: function searchWord(context, word) {
       context.commit('LOADING', true);
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/words/".concat(word)).then(function (res) {
-        context.commit('WORD', word);
         context.commit('WORD_DATA', res.data);
+        context.commit('NOT_FOUND', false);
       })["catch"](function (err) {
         console.log(err);
+        context.commit('NOT_FOUND', true);
       }).then(function () {
         context.commit('LOADING', false);
+        context.commit('WORD', word);
       });
     }
   },
@@ -2100,6 +2119,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     LOADING: function LOADING(state, value) {
       return state.loading = value;
+    },
+    NOT_FOUND: function NOT_FOUND(state, value) {
+      return state.notFound = value;
     }
   },
   strict: true
@@ -3077,13 +3099,22 @@ var render = function() {
     "div",
     { staticClass: "definition" },
     [
+      !_vm.loading && _vm.notFound
+        ? _c("div", { staticClass: "not-found" }, [
+            _c("div", { staticClass: "container" }, [
+              _vm._v("\n\t\t\tNo results found for "),
+              _c("i", [_c("u", [_vm._v(_vm._s(_vm.word))])])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "transition",
         { attrs: { name: "fade" } },
         [
           _vm.loading ? _c("loader") : _vm._e(),
           _vm._v(" "),
-          !_vm.loading
+          !_vm.loading && !_vm.notFound
             ? _c("div", { staticClass: "container" }, [
                 _c("p", { staticClass: "word-searched" }, [
                   _vm._v(
