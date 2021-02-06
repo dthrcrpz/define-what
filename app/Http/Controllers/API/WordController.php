@@ -16,34 +16,19 @@ class WordController extends Controller
 	}
 
     public function show ($word) {
-    	$response = $this->wordsAPI->get($word);
+    	$wordDefinition = $this->wordsAPI->get($word);
 
-        if ($response->status() == 200) {
+        if ($wordDefinition->status() == 200) {
             $this->saveWord($word);
         }
 
-    	return response([
-        	'data' => $response->json(),
-        	'status' => $response->status()
-        ], $response->status());
-    }
-
-    public function random () {
-        $response = $this->wordsAPI->random();
-
-        return response([
-            'data' => $response->json(),
-            'status' => $response->status()
-        ], $response->status());
-    }
-
-    public function antonyms ($word) {
-    	$response = $this->wordsAPI->antonyms($word);
+        $antonyms = $this->wordsAPI->antonyms($word);
 
     	return response([
-        	'data' => $response->json(),
-        	'status' => $response->status()
-        ], $response->status());
+        	'data' => $wordDefinition->json(),
+        	'status' => $wordDefinition->status(),
+            'antonyms' => $antonyms->json(),
+        ], $wordDefinition->status());
     }
 
     protected function saveWord ($word) {

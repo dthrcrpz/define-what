@@ -41,7 +41,7 @@
 </template>
 
 <script>
-	import { mapMutations, mapGetters } from 'vuex'
+	import { mapGetters } from 'vuex'
 	import Loader from './Loader'
 
 	export default {
@@ -61,7 +61,7 @@
 				if (allData.length - 1 == key) {
 					return word
 				} else {
-					return `${word},`
+					return `${word}, `
 				}
 			},
 			search (word) {

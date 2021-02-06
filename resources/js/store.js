@@ -5,9 +5,16 @@ export default {
         word: 'define',
         wordData: {
             data: {
-                word: ''
+                word: '',
+                pronunciation: {
+                    all: ''
+                }
+            },
+            antonyms: {
+                antonyms: []
             }
         },
+        previousSearches: [],
         loading: true,
         notFound: false
     },
@@ -23,6 +30,9 @@ export default {
         },
         getNotFound (state) {
             return state.notFound
+        },
+        getPreviousSearches (state) {
+            return state.previousSearches
         }
     },
     actions: {
@@ -30,6 +40,18 @@ export default {
             context.commit('LOADING', true)
             axios.get('/api/words/define').then(res => {
                 context.commit('WORD_DATA', res.data)
+            }).catch(err => {
+                console.log(err)
+            }).then(() => {
+                context.dispatch('setPreviousSearches')
+            })
+        },
+        setPreviousSearches (context) {
+            context.commit('PREVIOUS_SEARCHES', [])
+
+            axios.get('/api/previous-searches').then(res => {
+                console.log(res.data.previousSearches)
+                context.commit('PREVIOUS_SEARCHES', res.data.previousSearches)
             }).catch(err => {
                 console.log(err)
             }).then(() => {
@@ -49,8 +71,8 @@ export default {
                 console.log(err)
                 context.commit('NOT_FOUND', true)
             }).then(() => {
-                context.commit('LOADING', false)
                 context.commit('WORD', word)
+                context.dispatch('setPreviousSearches')
             })
         }
     },
@@ -66,6 +88,9 @@ export default {
         },
         NOT_FOUND (state, value) {
             return state.notFound = value
+        },
+        PREVIOUS_SEARCHES (state, data) {
+            return state.previousSearches = data
         }
     },
     strict: true
